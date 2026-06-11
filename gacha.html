@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gacha Simulator</title>
+    <link rel="stylesheet" href="gacha.css">
+</head>
+
+<body>
+    <h1>Gacha Simulator :D</h1>
+
+    <p id="pullCount">Pulls: 0</p>
+    <p id="result">Press the button to summon!</p>
+
+    <button id="summon">Let's go gambling!</button>
+    <button id="reset">Reset</button>
+
+    <div id="imageArea">
+        <img id="characterImage" hidden></img>
+    </div>
+
+    <div id="trackerArea">
+        <h2>Pull History</h2>
+
+        <p id="rarityTracker">Common: 0 | Uncommon: 0 | Rare: 0 | Epic: 0 | Legendary: 0</p>
+
+        <ul id="characterTracker"></ul>
+    </div>
+
+    <!-- Background -->
+    <style>
+        body {
+            background-image: url("faustWP.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@4.1.3/tsparticles.confetti.bundle.min.js"> 
+    </script>
+    <script src="gacha.js"></script>
+
+
+</body>
+</html>
