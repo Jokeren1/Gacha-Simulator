@@ -56,6 +56,13 @@ let gambleCount = 0;
 gambleButton.addEventListener("click", summon);
 resetButton.addEventListener("click", resetGame);
 
+let legendaryPity = 0;
+function pitySystem(): void { // Implement a pity system that increases the chances of getting a higher rarity character after a certain number of pulls without one
+    if (legendaryPity > 149) {
+        gachaPool.find(char => char.rarity === "legendary")!.weight += 0.02; // Increase legendary weight
+    }
+}
+
 function rollGacha(): GachaCharacter {
     const totalWeight = gachaPool.reduce((sum, char) => sum + char.weight, 0);
     let roll = Math.random() * totalWeight;
@@ -138,10 +145,16 @@ function resetGame(): void {
 }
 
 function summon(): void {
+    console.log(legendaryPity);
+    legendaryPity += 1; // Increment pity counter on each pull
     gambleCount += 1;
     pullCount.textContent = `Pull Count: ${gambleCount}`;
-
+    pitySystem();
     const won = rollGacha();
+
+    if (won.rarity === "legendary") {
+        legendaryPity = 0; // Reset pity counter on legendary pull
+    }
     
     showResult(won);
     showcharacter(won);
