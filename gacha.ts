@@ -8,6 +8,7 @@ interface GachaCharacter {
     weight: number;
     rarity: Rarity;
     quote: string;
+    voiceline: string;
 }
 
 const gambleButton = document.getElementById("summon")! as HTMLButtonElement;
@@ -18,19 +19,20 @@ const characterImage = document.getElementById("characterImage")! as HTMLImageEl
 const rarityTracker = document.getElementById("rarityTracker")! as HTMLParagraphElement;
 const characterTracker = document.getElementById("characterTracker")! as HTMLUListElement;
 const characterCounts: Record<string, number> = {};
+const voiceline = document.getElementById("voiceline")! as HTMLAudioElement;
 
 const gachaPool: GachaCharacter[] = [
-    { name: "Surprised Faust", image: "faust.png", weight: 19.98, rarity: "common", quote: "D:"},
-    { name: "Disappointed Faust", image: "lockin.jpg", weight: 19.98, rarity: "common", quote: "Lock in manager."},
-    { name: "Cursed Faust", image: "DonFaust.png", weight: 19.98, rarity: "common", quote: "관리자... 나리!!!!"},
-    { name: "Sad Faust", image: "DonFaustSad.png", weight: 19.98, rarity: "common", quote: "아니ㅣㅣㅣ!!! 왜 내 봿지를 빼는것이요??"},
-    { name: "Don Quixote", image: "DON.png", weight: 1.6, rarity: "rare", quote: "Beach volleybrll"},
-    { name: "Butter Lei Heng", image: "lei.png", weight: 7.99, rarity: "uncommon", quote: "Butter my biscuit"},
-    { name: "Lei Heng", image: "Lei_Heng.png", weight: 7.99, rarity: "uncommon", quote: "Hwat in tarnation?"},
-    { name: "Angry Xichun", image: "xichun.png", weight: 0.32, rarity: "epic", quote: "RAHHHHH"},
-    { name: "Happy Xichun", image: "jia.gif", weight: 0.26, rarity: "legendary", quote: "Happy happy happy"},
-    { name: "Firefist Gregor", image: "FireGregor.jpg", weight: 1.6, rarity: "rare", quote: "Insert screaming sound"},
-    { name: "Sinnerling 12 Gregor", image: "BabyGregor.png", weight: 0.32, rarity: "epic", quote: "WAHHHHHH"}
+    { name: "Surprised Faust", image: "faust.png", weight: 19.98, rarity: "common", quote: "D:", voiceline: "sad.mp3"}, 
+    { name: "Disappointed Faust", image: "lockin.jpg", weight: 19.98, rarity: "common", quote: "Lock in manager.", voiceline: "manager.mp3"}, 
+    { name: "Cursed Faust", image: "DonFaust.png", weight: 19.98, rarity: "common", quote: "관리자... 나리!!!!", voiceline: "ESQUIRE.mp3"}, 
+    { name: "Sad Faust", image: "DonFaustSad.png", weight: 19.98, rarity: "common", quote: "아니ㅣㅣㅣ!!! 왜 내 봿지를 빼는것이요??", voiceline: "FIE.mp3"}, 
+    { name: "Don Quixote", image: "DON.png", weight: 1.6, rarity: "rare", quote: "Beach volleyburr", voiceline: "volleyburr.mp3"}, 
+    { name: "Butter Lei Heng", image: "lei.png", weight: 7.99, rarity: "uncommon", quote: "Butter my biscuit", voiceline: "biscuit.mp3"}, 
+    { name: "Lei Heng", image: "Lei_Heng.png", weight: 7.99, rarity: "uncommon", quote: "Hwat in tarnation?", voiceline: "Tarnation.mp3"}, 
+    { name: "Angry Xichun", image: "xichun.png", weight: 0.32, rarity: "epic", quote: "RAHHHHH", voiceline: "rah.mp3"}, 
+    { name: "Happy Xichun", image: "jia.gif", weight: 0.26, rarity: "legendary", quote: "Happy happy happy", voiceline: "happy.mp3"}, 
+    { name: "Firefist Gregor", image: "FireGregor.jpg", weight: 1.6, rarity: "rare", quote: "GRAHHHHH", voiceline: "gregorscream.mp3"},
+    { name: "Sinnerling 12 Gregor", image: "BabyGregor.png", weight: 0.32, rarity: "epic", quote: "WAHHHHHH", voiceline: "baby.mp3"}, 
 ];
 
 const rarityCounts: Record<Rarity, number> = {
@@ -156,6 +158,8 @@ function summon(): void {
         legendaryPity = 0; // Reset pity counter on legendary pull
     }
     
+    voiceline.src = won.voiceline;
+    voiceline.play();
     showResult(won);
     showcharacter(won);
     updateTrackers(won);
